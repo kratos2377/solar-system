@@ -6,17 +6,30 @@ import Planet from "./components/Planet";
 import Rotation from "./components/Rotation";
 import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 import "./App.css";
+import { Button, ProgressBar } from "react-bootstrap";
 
 function App() {
   const [build, setBuild] = useState(false);
-
+  const [cameraPosChange, setCameraPos] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [clicked, setClicked] = useState(false);
+  let count = 1;
   function change() {
-    setBuild(true);
+    setClicked(true);
+
+    setInterval(() => {
+      setProgress(20 * count);
+      count++;
+    }, 900);
+    setTimeout(() => {
+      setBuild(true);
+    }, 5000);
   }
 
   useEffect(() => {
     // TODO: Understand this code later.
-    if (build || !build) {
+
+    if (build) {
       const gui = new GUI();
       let test = new SceneInit();
       test.initScene();
@@ -103,8 +116,9 @@ function App() {
       // NOTE: Animate solar system at 60fps.
       const EARTH_YEAR = 2 * Math.PI * (1 / 60) * (1 / 60);
       const animate = () => {
-        if (test.camera.position.z >= 180) {
+        if (test.camera.position.z >= 180 && cameraPosChange) {
           test.camera.position.z -= 5;
+          setCameraPos(false);
         }
         sunMesh.rotation.y += 0.001;
         mercurySystem.rotation.y += EARTH_YEAR * 4;
@@ -120,7 +134,20 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center">
       <canvas id="myThreeJsCanvas" />
-      {/* <button onClick={change}>Click here</button> */}
+      {!build ? (
+        <div>
+          <div>
+            {!clicked ? <h1>This is our default universe</h1> : <div></div>}
+            {!clicked ? <p>Click on the button to explore it</p> : <div></div>}
+            <Button onClick={change} variant="outline-primary">
+              Click Here
+            </Button>
+            <ProgressBar animated now={progress} />
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

@@ -1,13 +1,26 @@
 {
   "compilerOptions": {
-    "paths": {
-      "three/examples/jsm/libs/dat.gui.module": [
-          "./node_modules/@types/dat.gui"
-      ]
+    "moduleResolution": "node",
+    "strict": true,
+    "allowJs": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-      "moduleResolution": "node",
-      "strict": true,
-      "allowJs": true
-  },
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts"
+  ]
 }
