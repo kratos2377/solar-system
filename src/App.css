@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.container-main {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+.menu {
+  margin: 0;
+  list-style-type: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

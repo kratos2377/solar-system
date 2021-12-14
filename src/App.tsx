@@ -9,7 +9,7 @@ import AddGalaxy from "./functions/AddGalaxy";
 import starWarp from "./functions/star-warp";
 
 function App() {
-  const [build, setBuild] = useState(true);
+  const [build, setBuild] = useState(false);
   const [cameraPosChange, setCameraPos] = useState(true);
   const [mode, setMode] = useState("Solar-System");
   const [progress, setProgress] = useState(0);
@@ -60,11 +60,11 @@ function App() {
       // let newStar = starGeo.toBufferGeometry();
       // stars = new THREE.Points(newStar, starMaterial);
       // test.scene.add(stars);
-      console.log("Star-Warp Start");
+
       //AddPlanet(test);
       //AddGalaxy(test);
       starWarp(test);
-      console.log("Star-Warp End");
+
       const animate = () => {
         if (test.camera.position.z >= 180 && cameraPosChange) {
           test.camera.position.z -= 5;
@@ -85,7 +85,7 @@ function App() {
   return (
     <div className="flex flex-col items-center justify-center relative">
       <canvas id="myThreeJsCanvas" />
-      {/* {!build ? (
+      {!build ? (
         <div>
           <div>
             {!clicked ? <h1>This is our default universe</h1> : <div></div>}
@@ -98,7 +98,7 @@ function App() {
         </div>
       ) : (
         <div></div>
-      )} */}
+      )}
     </div>
   );
 }

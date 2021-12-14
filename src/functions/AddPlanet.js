@@ -1,11 +1,11 @@
 import * as THREE from "three";
-
+import React, { useState } from "react";
 import Planet from "../components/Planet";
 import Rotation from "../components/Rotation";
 import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 
 const AddPlanet = (test) => {
-  const gui = new GUI();
+  // const gui = new GUI();
   const sunGeometry = new THREE.SphereGeometry(8);
   const sunTexture = new THREE.TextureLoader().load("sun.jpeg");
   const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
@@ -51,11 +51,11 @@ const AddPlanet = (test) => {
 
   // NOTE: Add solar system mesh GUI.
 
-  const solarSystemGui = gui.addFolder("solar system");
-  solarSystemGui.add(mercuryRotationMesh, "visible").name("mercury").listen();
-  solarSystemGui.add(venusRotationMesh, "visible").name("venus").listen();
-  solarSystemGui.add(earthRotationMesh, "visible").name("earth").listen();
-  solarSystemGui.add(marsRotationMesh, "visible").name("mars").listen();
+  // const solarSystemGui = gui.addFolder("solar system");
+  // solarSystemGui.add(mercuryRotationMesh, "visible").name("mercury").listen();
+  // solarSystemGui.add(venusRotationMesh, "visible").name("venus").listen();
+  // solarSystemGui.add(earthRotationMesh, "visible").name("earth").listen();
+  // solarSystemGui.add(marsRotationMesh, "visible").name("mars").listen();
 
   // NOTE: Animate solar system at 60fps.
   const EARTH_YEAR = 2 * Math.PI * (1 / 60) * (1 / 60);
@@ -66,6 +66,7 @@ const AddPlanet = (test) => {
     venusSystem.rotation.y += EARTH_YEAR * 2;
     earthSystem.rotation.y += EARTH_YEAR;
     marsSystem.rotation.y += EARTH_YEAR * 0.5;
+
     requestAnimationFrame(animate);
   };
 

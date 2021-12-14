@@ -23,7 +23,7 @@ const AddGalaxy = (test) => {
 
   //galaxy
   const parameters = {};
-  parameters.count = 557400;
+  parameters.count = 457400;
   parameters.size = 0.032;
   parameters.sizeAttenuation = true;
   parameters.radius = 5.35;
