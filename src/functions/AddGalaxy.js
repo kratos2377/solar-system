@@ -210,8 +210,8 @@ const AddGalaxy = (test) => {
   //   );
   //   test.camera.position.x = 2;
   //   test.camera.position.y = 2.5;
-  test.camera.position.z = 20;
-  test.scene.add(test.camera);
+  test.camera.position.z = 15;
+  // test.scene.add(test.camera);
 
   // Controls
   //   const controls = new OrbitControls(camera, canvas);
