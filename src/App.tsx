@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import SceneInit from "./components/SceneInit";
-import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 import "./App.css";
-import { Button, ProgressBar } from "react-bootstrap";
+import { Accordion, Button, ProgressBar } from "react-bootstrap";
 import AddPlanet from "./functions/AddPlanet";
 import AddGalaxy from "./functions/AddGalaxy";
 import starWarp from "./functions/star-warp";
+import Planet from "./components/Planet";
+import SolarSystem from "./data/solar-system.json";
 
 function App() {
   const [build, setBuild] = useState(false);
@@ -61,9 +62,9 @@ function App() {
       // stars = new THREE.Points(newStar, starMaterial);
       // test.scene.add(stars);
 
-      //AddPlanet(test);
+      AddPlanet(test);
       //AddGalaxy(test);
-      starWarp(test);
+      //starWarp(test);
 
       const animate = () => {
         if (test.camera.position.z >= 180 && cameraPosChange) {
@@ -83,7 +84,7 @@ function App() {
   // }, [mode]);
 
   return (
-    <div className="flex flex-col items-center justify-center relative">
+    <div>
       <canvas id="myThreeJsCanvas" />
       {!build ? (
         <div>
@@ -97,7 +98,25 @@ function App() {
           </div>
         </div>
       ) : (
-        <div></div>
+        <>
+          <div id="accord">
+            <h2 id="menu-title">Planets</h2>
+            <Accordion>
+              {SolarSystem.planets.map((item, i) => (
+                <Accordion.Item eventKey={i.toString()} id="accord-item">
+                  <Accordion.Header>{item.planetName}</Accordion.Header>
+                  <Accordion.Body id="accord-text">
+                    {item.planetName}
+                  </Accordion.Body>
+                </Accordion.Item>
+              ))}
+            </Accordion>
+          </div>
+
+          <div id="function-buttons">
+            <h2 id="menu-title">Planets</h2>
+          </div>
+        </>
       )}
     </div>
   );

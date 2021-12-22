@@ -1,0 +1,48 @@
+{
+  "planets": [
+    {
+      "planetName": "Mercury",
+      "planetNumber": "1"
+    },
+
+    {
+      "planetName": "Venus",
+      "planetNumber": "2"
+    },
+
+    {
+      "planetName": "Earth",
+      "planetNumber": "3"
+    },
+
+    {
+      "planetName": "Mars",
+      "planetNumber": "4"
+    },
+
+    {
+      "planetName": "Jupiter",
+      "planetNumber": "5"
+    },
+
+    {
+      "planetName": "Saturn",
+      "planetNumber": "6"
+    },
+
+    {
+      "planetName": "Uranus",
+      "planetNumber": "7"
+    },
+
+    {
+      "planetName": "Neptune",
+      "planetNumber": "8"
+    },
+
+    {
+      "planetName": "Pluto",
+      "planetNumber": "9"
+    }
+  ]
+}

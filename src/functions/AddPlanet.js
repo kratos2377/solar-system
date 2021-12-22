@@ -2,7 +2,6 @@ import * as THREE from "three";
 import React, { useState } from "react";
 import Planet from "../components/Planet";
 import Rotation from "../components/Rotation";
-import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 
 const AddPlanet = (test) => {
   // const gui = new GUI();
