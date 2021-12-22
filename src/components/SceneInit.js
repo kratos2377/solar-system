@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
+//import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class SceneInit {
   constructor(fov = 36, camera, scene, controls, renderer) {
@@ -59,7 +59,7 @@ export default class SceneInit {
     window.requestAnimationFrame(this.animate.bind(this));
     this.render();
     // this.stats.update();
-    // this.controls.update();
+    //this.controls.update();
   }
 
   render() {
