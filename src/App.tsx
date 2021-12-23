@@ -24,6 +24,7 @@ import { IconContext } from "react-icons";
 import { test } from "./render-components/scene-camera";
 import FadeIn from "react-fade-in";
 import html2canvas from "html2canvas";
+import { isMobile } from "react-device-detect";
 
 function App() {
   const [build, setBuild] = useState(false);
@@ -31,6 +32,7 @@ function App() {
   const [mode, setMode] = useState<
     "Solar-System" | "Galaxy" | "Star-System" | "Star-System-Out"
   >("Star-System");
+  const [errorModal, setErrorModal] = useState(false);
   const [progress, setProgress] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [transition, setTransition] = useState(true);
@@ -52,6 +54,10 @@ function App() {
 
   useEffect(() => {
     // TODO: Understand this code later.
+    if (isMobile) {
+      setErrorModal(true);
+      return;
+    }
 
     if (build) {
       test.initScene();
@@ -189,6 +195,15 @@ function App() {
 
   return (
     <div>
+      <Modal show={errorModal}>
+        <Modal.Header>
+          <Modal.Title>Error...!!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>For Better Experience, open the website on a PC</p>
+        </Modal.Body>
+      </Modal>
+
       <canvas id="myThreeJsCanvas" />
       {!build ? (
         <div>
