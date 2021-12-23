@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const starWarp = (test) => {
+const starWarpOutgoing = (test) => {
   // var scene, camera, renderer;
 
   let LINE_COUNT = 5000;
@@ -61,7 +61,6 @@ const starWarp = (test) => {
 
     let mat = new THREE.LineBasicMaterial({ color: 0xffffff });
     let lines = new THREE.LineSegments(geom, mat);
-    lines.name = "star-lines";
     test.scene.add(lines);
     console.log("Init Completed");
     window.addEventListener("resize", onWindowResize, false);
@@ -78,8 +77,8 @@ const starWarp = (test) => {
   function animate() {
     console.log("Animation Started");
     for (let line_index = 0; line_index < LINE_COUNT; line_index++) {
-      va[2 * line_index] += 0.03;
-      va[2 * line_index + 1] += 0.25;
+      va[2 * line_index] -= 0.1;
+      va[2 * line_index + 1] -= 0.15;
 
       pa[6 * line_index + 2] += va[2 * line_index];
       pa[6 * line_index + 5] += va[2 * line_index + 1];
@@ -100,4 +99,4 @@ const starWarp = (test) => {
   animate();
 };
 
-export default starWarp;
+export default starWarpOutgoing;

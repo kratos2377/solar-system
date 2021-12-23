@@ -11,6 +11,7 @@ const AddPlanet = (test) => {
   const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
   const solarSystem = new THREE.Group();
   solarSystem.add(sunMesh);
+  solarSystem.name = "solar-system";
   test.scene.add(solarSystem);
 
   const mercury = new Planet(2, 16, "mercury.png");

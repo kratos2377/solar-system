@@ -6,7 +6,6 @@ export default class SceneInit {
   constructor(fov = 36, camera, scene, controls, renderer) {
     this.fov = fov;
     this.scene = scene;
-
     this.camera = camera;
     this.controls = controls;
     this.renderer = renderer;

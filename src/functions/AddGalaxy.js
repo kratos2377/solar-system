@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { GUI } from "three/examples/jsm/libs/dat.gui.module";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Points } from "three";
 
@@ -37,6 +36,8 @@ const AddGalaxy = (test) => {
   let geometry;
   let material;
   let galaxyPoints;
+
+  const canvas = document.getElementById("myThreeJsCanvas");
 
   const generateGalaxy = () => {
     const startsPositions = new Float32Array(parameters.count * 3);
@@ -110,7 +111,8 @@ const AddGalaxy = (test) => {
     });
 
     galaxyPoints = new THREE.Points(geometry, material);
-    console.log(galaxyPoints);
+
+    galaxyPoints.name = "Galaxy";
     test.scene.add(galaxyPoints);
   };
 
@@ -229,6 +231,10 @@ const AddGalaxy = (test) => {
   /**
    * Animate
    */
+  const controls = new OrbitControls(test.camera, canvas);
+  console.log("Orbit Controls");
+  console.log(controls);
+  controls.enableDamping = true;
   const clock = new THREE.Clock();
 
   const tick = () => {
@@ -244,7 +250,7 @@ const AddGalaxy = (test) => {
     );
 
     // Update controls
-    // controls.update();
+    controls.update();
 
     // Render
     test.renderer.render(test.scene, test.camera);
