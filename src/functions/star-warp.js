@@ -18,9 +18,6 @@ const starWarp = (test) => {
   let vel = geom.getAttribute("velocity");
   let va = vel.array;
 
-  console.log("Star Warp started 23");
-  console.log(pos);
-
   function init() {
     // scene = new THREE.Scene();
     // camera = new THREE.PerspectiveCamera(
@@ -40,11 +37,6 @@ const starWarp = (test) => {
       var y = Math.random() * 200 - 100;
       var z = Math.random() * 500 - 100;
 
-      // console.log("X Y Z");
-      // console.log(x);
-      // console.log(y);
-      // console.log(z);
-
       var xx = x;
       var yy = y;
       var zz = z;
@@ -63,7 +55,6 @@ const starWarp = (test) => {
     let lines = new THREE.LineSegments(geom, mat);
     lines.name = "star-lines";
     test.scene.add(lines);
-    console.log("Init Completed");
     window.addEventListener("resize", onWindowResize, false);
   }
 
@@ -76,7 +67,6 @@ const starWarp = (test) => {
   init();
 
   function animate() {
-    console.log("Animation Started");
     for (let line_index = 0; line_index < LINE_COUNT; line_index++) {
       va[2 * line_index] += 0.03;
       va[2 * line_index + 1] += 0.25;

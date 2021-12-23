@@ -232,8 +232,7 @@ const AddGalaxy = (test) => {
    * Animate
    */
   const controls = new OrbitControls(test.camera, canvas);
-  console.log("Orbit Controls");
-  console.log(controls);
+
   controls.enableDamping = true;
   const clock = new THREE.Clock();
 

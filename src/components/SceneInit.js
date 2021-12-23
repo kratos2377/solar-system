@@ -30,6 +30,7 @@ export default class SceneInit {
     this.renderer = new THREE.WebGLRenderer({
       canvas: document.getElementById("myThreeJsCanvas"),
       antialias: true,
+      preserveDrawingBuffer: true,
     });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);

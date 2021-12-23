@@ -13,7 +13,7 @@ const AddPlanet = (test) => {
   solarSystem.add(sunMesh);
   solarSystem.name = "solar-system";
   test.scene.add(solarSystem);
-
+  test.camera.position.z = 100;
   const mercury = new Planet(2, 16, "mercury.png");
   const mercuryMesh = mercury.getMesh();
   let mercurySystem = new THREE.Group();

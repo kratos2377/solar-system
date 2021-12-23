@@ -9,10 +9,12 @@ import {
   ProgressBar,
   Row,
   Image,
+  Modal,
 } from "react-bootstrap";
 import AddPlanet from "./functions/AddPlanet";
 import AddGalaxy from "./functions/AddGalaxy";
 import starWarp from "./functions/star-warp";
+import starWarpOutgoing from "./functions/star-wrap-outgoing";
 import Planet from "./components/Planet";
 import SolarSystem from "./data/solar-system.json";
 import { GiConsoleController, GiGalaxy } from "react-icons/gi";
@@ -20,17 +22,21 @@ import { GiSolarSystem } from "react-icons/gi";
 import { AiFillCamera } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { test } from "./render-components/scene-camera";
+import FadeIn from "react-fade-in";
+import html2canvas from "html2canvas";
 
 function App() {
   const [build, setBuild] = useState(false);
   const [cameraPosChange, setCameraPos] = useState(true);
-  const [mode, setMode] = useState<"Solar-System" | "Galaxy" | "Star-System">(
-    "Star-System"
-  );
+  const [mode, setMode] = useState<
+    "Solar-System" | "Galaxy" | "Star-System" | "Star-System-Out"
+  >("Star-System");
   const [progress, setProgress] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [transition, setTransition] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
+  const [imageModal, setImageModal] = useState(false);
+  const [image, setImage] = useState(null);
   let count = 1;
   function change() {
     setClicked(true);
@@ -100,6 +106,28 @@ function App() {
   //   else if (mode === "Solar-system") AddPlanet(test);
   // }, [mode]);
 
+  const takeScreenshot = () => {
+    setImageModal(true);
+
+    html2canvas(document.getElementById("myThreeJsCanvas")).then(function (
+      canvas
+    ) {
+      console.log("This is the screenshot");
+      console.log(canvas);
+      //document.body.append(canvas);
+
+      var img = canvas.toDataURL("image/png");
+
+      setImage(img);
+    });
+
+    // document.getElementById("screenshot-img").setAttribute("src", image);
+  };
+
+  const handleClose = () => {
+    setImageModal(false);
+  };
+
   const changeRenderScene = () => {
     if (mode === "Solar-System") {
       setMode("Galaxy");
@@ -118,8 +146,8 @@ function App() {
       test.scene.remove(starObject);
 
       setTimeout(() => {
-        AddGalaxy(test);
-        setMode("Galaxy");
+        AddPlanet(test);
+        setMode("Solar-System");
         setTransition(false);
       }, 2000);
     } else if (current === "Solar-System") {
@@ -127,19 +155,20 @@ function App() {
       test.scene.remove(solarObject);
 
       setTimeout(() => {
-        starWarp(test);
+        starWarpOutgoing(test);
       }, 1000);
 
       setTimeout(() => {
-        var starObject = test.scene.getObjectByName("star-lines");
+        var starObject = test.scene.getObjectByName("star-lines-out");
         test.scene.remove(starObject);
         AddGalaxy(test);
         setMode("Galaxy");
         setTransition(false);
-      }, 3000);
+      }, 4500);
     } else if (mode === "Galaxy") {
-      console.log("Scene HEre");
-      console.log(test);
+      // console.log("Scene HEre");
+      // console.log(test);
+      setShowDetails(true);
       var galaxyObject = test.scene.getObjectByName("Galaxy");
       test.scene.remove(galaxyObject);
 
@@ -153,6 +182,7 @@ function App() {
         AddPlanet(test);
         setMode("Solar-System");
         setTransition(false);
+        setShowDetails(false);
       }, 4000);
     }
   };
@@ -173,58 +203,84 @@ function App() {
         </div>
       ) : (
         <>
+          <Modal show={imageModal} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Screenshot</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {console.log(image)}
+              <img id="screenshot-img" src={image} alt="screenshot" />
+            </Modal.Body>
+            <Modal.Footer>
+              <a href={image} download={mode + ".png"}>
+                Download
+              </a>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
           {mode === "Solar-System" && !showDetails ? (
-            <div id="accord">
-              <h2 id="menu-title">Planets</h2>
-              <Accordion>
-                {SolarSystem.planets.map((item, i) => (
-                  <Accordion.Item eventKey={i.toString()} id="accord-item">
-                    <Accordion.Header>{item.planetName}</Accordion.Header>
-                    <Accordion.Body id="accord-text">
-                      {item.planetName}
-                    </Accordion.Body>
-                  </Accordion.Item>
-                ))}
-              </Accordion>
-            </div>
+            <FadeIn>
+              <div id="accord">
+                <h2 id="menu-title">Planets</h2>
+                <Accordion>
+                  {SolarSystem.planets.map((item, i) => (
+                    <Accordion.Item eventKey={i.toString()} id="accord-item">
+                      <Accordion.Header>{item.planetName}</Accordion.Header>
+                      <Accordion.Body id="accord-text">
+                        {item.planetName}
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  ))}
+                </Accordion>
+              </div>
+            </FadeIn>
           ) : (
             <div></div>
           )}
 
           {!transition ? (
-            <div id="function-buttons">
-              <p></p>
-              <Container className="container">
-                <Row>
-                  <Col xs={6} md={4}>
-                    <Button
-                      size="lg"
-                      className="back-button"
-                      onClick={changeRenderScene}
-                    >
-                      <IconContext.Provider
-                        value={{ className: "global-class-name" }}
+            <FadeIn>
+              <div id="function-buttons">
+                <p></p>
+                <Container className="container">
+                  <Row>
+                    <Col xs={6} md={4}>
+                      <Button
+                        size="lg"
+                        className="back-button"
+                        onClick={changeRenderScene}
                       >
-                        {mode === "Solar-System" ? (
-                          <GiGalaxy size={40} />
-                        ) : (
-                          <GiSolarSystem size={40} />
-                        )}
-                      </IconContext.Provider>
-                    </Button>
-                  </Col>
-                  <Col xs={6} md={4}>
-                    <Button size="lg" className="back-button">
-                      <IconContext.Provider
-                        value={{ className: "global-class-name" }}
+                        <IconContext.Provider
+                          value={{ className: "global-class-name" }}
+                        >
+                          {mode === "Solar-System" ? (
+                            <GiGalaxy size={40} />
+                          ) : (
+                            <GiSolarSystem size={40} />
+                          )}
+                        </IconContext.Provider>
+                      </Button>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <Button
+                        size="lg"
+                        className="back-button"
+                        onClick={takeScreenshot}
                       >
-                        <AiFillCamera size={40} />
-                      </IconContext.Provider>
-                    </Button>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
+                        <IconContext.Provider
+                          value={{ className: "global-class-name" }}
+                        >
+                          <AiFillCamera size={40} />
+                        </IconContext.Provider>
+                      </Button>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </FadeIn>
           ) : (
             <div></div>
           )}
