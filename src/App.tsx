@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import SceneInit from "./components/SceneInit";
 import "./App.css";
 import {
   Accordion,
@@ -20,6 +19,7 @@ import { GiConsoleController, GiGalaxy } from "react-icons/gi";
 import { GiSolarSystem } from "react-icons/gi";
 import { AiFillCamera } from "react-icons/ai";
 import { IconContext } from "react-icons";
+import { test } from "./render-components/scene-camera";
 
 function App() {
   const [build, setBuild] = useState(false);
@@ -44,13 +44,10 @@ function App() {
     }, 5000);
   }
 
-  let test;
-
   useEffect(() => {
     // TODO: Understand this code later.
 
     if (build) {
-      test = new SceneInit();
       test.initScene();
       test.animate();
       // let star: any;
