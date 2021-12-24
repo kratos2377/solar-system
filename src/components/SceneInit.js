@@ -3,7 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class SceneInit {
-  constructor(fov = 36, camera, scene, controls, renderer) {
+  constructor(fov = 40, camera, scene, controls, renderer) {
     this.fov = fov;
     this.scene = scene;
     this.camera = camera;

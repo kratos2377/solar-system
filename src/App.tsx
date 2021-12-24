@@ -10,6 +10,7 @@ import {
   Row,
   Image,
   Modal,
+  Table,
 } from "react-bootstrap";
 import AddPlanet from "./functions/AddPlanet";
 import AddGalaxy from "./functions/AddGalaxy";
@@ -32,6 +33,7 @@ function App() {
   const [mode, setMode] = useState<
     "Solar-System" | "Galaxy" | "Star-System" | "Star-System-Out"
   >("Star-System");
+  var lastScrollTop = 0;
   const [errorModal, setErrorModal] = useState(false);
   const [progress, setProgress] = useState(0);
   const [clicked, setClicked] = useState(false);
@@ -92,7 +94,7 @@ function App() {
       starWarp(test);
 
       const animate = () => {
-        if (test.camera.position.z >= 180 && cameraPosChange) {
+        if (test.camera.position.z >= 350 && cameraPosChange) {
           test.camera.position.z -= 5;
           setCameraPos(false);
         }
@@ -113,13 +115,11 @@ function App() {
   // }, [mode]);
 
   const takeScreenshot = () => {
-    setImageModal(true);
-
     html2canvas(document.getElementById("myThreeJsCanvas")).then(function (
       canvas
     ) {
-      console.log("This is the screenshot");
-      console.log(canvas);
+      // console.log("This is the screenshot");
+      // console.log(canvas);
       //document.body.append(canvas);
 
       var img = canvas.toDataURL("image/png");
@@ -128,9 +128,11 @@ function App() {
     });
 
     // document.getElementById("screenshot-img").setAttribute("src", image);
+    setImageModal(true);
   };
 
   const handleClose = () => {
+    setImage(null);
     setImageModal(false);
   };
 
@@ -223,7 +225,6 @@ function App() {
               <Modal.Title>Screenshot</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {console.log(image)}
               <img id="screenshot-img" src={image} alt="screenshot" />
             </Modal.Body>
             <Modal.Footer>
@@ -245,7 +246,22 @@ function App() {
                     <Accordion.Item eventKey={i.toString()} id="accord-item">
                       <Accordion.Header>{item.planetName}</Accordion.Header>
                       <Accordion.Body id="accord-text">
-                        {item.planetName}
+                        <Table size="lg">
+                          <tbody id="table-body">
+                            <tr>
+                              <td>Diameter</td>
+                              <td>{item.diameter.toString() + " km"}</td>
+                            </tr>
+                            <tr>
+                              <td>Length Of Day</td>
+                              <td>{item.lengthOfDay.toString() + " hrs"}</td>
+                            </tr>
+                            <tr>
+                              <td>Gravity of the Planet</td>
+                              <td>{item.gravity.toString() + " m/sec2"}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
                       </Accordion.Body>
                     </Accordion.Item>
                   ))}

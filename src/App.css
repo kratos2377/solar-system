@@ -9,7 +9,6 @@ body {
   left: 0;
   top: 0;
   z-index: -1;
-  pointer-events: none;
 }
 
 #text {
@@ -23,7 +22,7 @@ body {
 
 #accord {
   margin: 20;
-  width: 13%;
+  width: 18%;
   position: fixed;
   background: rgba(25, 25, 25, 0.5);
   border: 1px solid rgba(45, 45, 45, 0.8);
@@ -69,4 +68,8 @@ body {
 #screenshot-img {
   width: 100%;
   height: 100%;
+}
+
+#table-body {
+  color: white;
 }

@@ -231,9 +231,9 @@ const AddGalaxy = (test) => {
   /**
    * Animate
    */
-  const controls = new OrbitControls(test.camera, canvas);
+  //const controls = new OrbitControls(test.camera, canvas);
 
-  controls.enableDamping = true;
+  //controls.enableDamping = true;
   const clock = new THREE.Clock();
 
   const tick = () => {
@@ -249,7 +249,7 @@ const AddGalaxy = (test) => {
     );
 
     // Update controls
-    controls.update();
+    //controls.update();
 
     // Render
     test.renderer.render(test.scene, test.camera);
