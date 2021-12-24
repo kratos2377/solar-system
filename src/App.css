@@ -6,6 +6,7 @@ body {
   height: 100%;
   display: block;
   position: fixed;
+  background-color: black;
   left: 0;
   top: 0;
   z-index: -1;
@@ -72,4 +73,33 @@ body {
 
 #table-body {
   color: white;
+}
+
+#load-back {
+  background: black;
+}
+
+#load-content {
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  text-align: center;
+}
+
+#load-svg {
+  width: 15%;
+  height: 15%;
+  align-self: center;
+  margin: auto;
+}
+
+#load-progress {
+  width: 100%;
+}
+
+#load-button {
+  margin: 20px;
 }

@@ -20,6 +20,9 @@ export default class SceneInit {
     );
     this.camera.position.z = 1500;
 
+    console.log("Camera Position");
+    console.log(this.camera);
+
     this.scene = new THREE.Scene();
 
     // const spaceTexture = new THREE.TextureLoader().load("space2.jpeg");

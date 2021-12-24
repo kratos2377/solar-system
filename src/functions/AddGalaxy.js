@@ -5,6 +5,7 @@ import { Points } from "three";
 const AddGalaxy = (test) => {
   //   const gui = new GUI({ width: 360, closed: true });
 
+  test.camera.position.z = 15;
   //texture
   const particleTexture = new THREE.TextureLoader().load("5.png");
 
@@ -212,7 +213,7 @@ const AddGalaxy = (test) => {
   //   );
   //   test.camera.position.x = 2;
   //   test.camera.position.y = 2.5;
-  test.camera.position.z = 15;
+  // test.camera.position.z = 15;
   // test.scene.add(test.camera);
 
   // Controls

@@ -26,6 +26,8 @@ import { test } from "./render-components/scene-camera";
 import FadeIn from "react-fade-in";
 import html2canvas from "html2canvas";
 import { isMobile } from "react-device-detect";
+import { ReactSVG } from "react-svg";
+//import solarSVG from "solar-system.svg";
 
 function App() {
   const [build, setBuild] = useState(false);
@@ -88,7 +90,7 @@ function App() {
       // let newStar = starGeo.toBufferGeometry();
       // stars = new THREE.Points(newStar, starMaterial);
       // test.scene.add(stars);
-
+      test.controls.enabled = false;
       // AddPlanet(test);
       //AddGalaxy(test);
       starWarp(test);
@@ -97,6 +99,10 @@ function App() {
         if (test.camera.position.z >= 350 && cameraPosChange) {
           test.camera.position.z -= 5;
           setCameraPos(false);
+        } else {
+          if (cameraPosChange) {
+            setCameraPos(false);
+          }
         }
 
         requestAnimationFrame(animate);
@@ -137,6 +143,9 @@ function App() {
   };
 
   const changeRenderScene = () => {
+    test.camera.rotation.set(0, 0, 0);
+    test.camera.position.x = 0;
+    test.camera.position.y = 9.184850993605149e-14;
     if (mode === "Solar-System") {
       setMode("Galaxy");
       setTransition(true);
@@ -157,12 +166,14 @@ function App() {
         AddPlanet(test);
         setMode("Solar-System");
         setTransition(false);
+        test.controls.enabled = true;
       }, 2000);
     } else if (current === "Solar-System") {
       var solarObject = test.scene.getObjectByName("solar-system");
       test.scene.remove(solarObject);
 
       setTimeout(() => {
+        test.controls.enabled = false;
         starWarpOutgoing(test);
       }, 1000);
 
@@ -172,6 +183,7 @@ function App() {
         AddGalaxy(test);
         setMode("Galaxy");
         setTransition(false);
+        test.controls.enabled = true;
       }, 4500);
     } else if (mode === "Galaxy") {
       // console.log("Scene HEre");
@@ -181,6 +193,7 @@ function App() {
       test.scene.remove(galaxyObject);
 
       setTimeout(() => {
+        test.controls.enabled = false;
         starWarp(test);
       }, 1000);
 
@@ -191,12 +204,13 @@ function App() {
         setMode("Solar-System");
         setTransition(false);
         setShowDetails(false);
+        test.controls.enabled = true;
       }, 4000);
     }
   };
 
   return (
-    <div>
+    <div id="load-back">
       <Modal show={errorModal}>
         <Modal.Header>
           <Modal.Title>Error...!!</Modal.Title>
@@ -208,14 +222,39 @@ function App() {
 
       <canvas id="myThreeJsCanvas" />
       {!build ? (
-        <div>
+        <div id="load-content">
           <div>
-            {!clicked ? <h1>This is our default universe</h1> : <div></div>}
-            {!clicked ? <p>Click on the button to explore it</p> : <div></div>}
-            <Button onClick={change} variant="outline-primary">
-              Click Here
-            </Button>
-            <ProgressBar animated now={progress} />
+            <div id="load-svg">
+              <ReactSVG src="solar-system.svg" />
+            </div>
+            <h2>3D Space Model</h2>
+            {!clicked ? (
+              <div>
+                <p>
+                  The Project is a Space Model which contains our Solar-System
+                  and our Milky Way Galaxy.
+                </p>
+                <p>
+                  You can switch between these two models and take Screenshot of
+                  your favorite angles.
+                </p>
+                <p>More Features will be added soon</p>
+              </div>
+            ) : (
+              <div></div>
+            )}
+            {!clicked ? (
+              <Button
+                onClick={change}
+                variant="outline-primary"
+                id="load-button"
+              >
+                Build Solar System
+              </Button>
+            ) : (
+              <div></div>
+            )}
+            <ProgressBar id="load-progress" animated now={progress} />
           </div>
         </div>
       ) : (
@@ -237,7 +276,7 @@ function App() {
             </Modal.Footer>
           </Modal>
 
-          {mode === "Solar-System" && !showDetails ? (
+          {mode === "Solar-System" && !showDetails && !cameraPosChange ? (
             <FadeIn>
               <div id="accord">
                 <h2 id="menu-title">Planets</h2>
@@ -272,7 +311,7 @@ function App() {
             <div></div>
           )}
 
-          {!transition ? (
+          {!transition && !cameraPosChange ? (
             <FadeIn>
               <div id="function-buttons">
                 <p></p>
